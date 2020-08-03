@@ -6,8 +6,8 @@
   </block>
 </swiper>
 
-<view>
+<view class="playlist-container">
   <block wx:for="{{playlist}}">
-    <x-playlist></x-playlist>
+    <x-playlist playlist="{{item}}"></x-playlist>
   </block>
 </view>
