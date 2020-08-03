@@ -4,5 +4,10 @@
       <image src="{{item.url}}" mode="widthFix" class="img"></image>
     </swiper-item>
   </block>
-  
 </swiper>
+
+<view>
+  <block wx:for="{{playlist}}">
+    <x-playlist></x-playlist>
+  </block>
+</view>

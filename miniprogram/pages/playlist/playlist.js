@@ -15,6 +15,17 @@ Page({
       {
             url: 'http://p1.music.126.net/Yo-FjrJTQ9clkDkuUCTtUg==/109951164169441928.jpg',
       }
+    ],
+    playlist: [
+      {
+        url: '111'
+      },
+      {
+        url: '222'
+      },
+      {
+        url: '33'
+      }
     ]
   },
 
