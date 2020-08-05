@@ -39,8 +39,13 @@ Page({
           name: pl.name
         }
       })
+      this._setMusiclist()
       wx.hideLoading();
     })
+  },
+
+  _setMusiclist() {
+    wx.setStorageSync('musiclist', this.data.musiclist);
   },
 
   /**
