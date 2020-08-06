@@ -6,3 +6,9 @@
         <image class="player-img" src="{{picUrl}}"/>
     </view>
 </view>
+
+<view class="control">
+    <text class="iconfont icon-shangyishou"></text>
+    <text class="iconfont {{isPlaying? 'icon-zanting': 'icon-bofang'}}"></text>
+    <text class="iconfont icon-xiayishou"></text>
+</view>
