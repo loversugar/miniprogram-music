@@ -108,3 +108,11 @@
     font-size: 120rpx;
     margin: 0 50rpx;
 }
+
+.progress-bar {
+    width: 90%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 24%;
+}
