@@ -1,9 +1,17 @@
+const app = getApp()
 Component({
   data: {
     playingId: -1
   },
   properties: {
     musiclist: Array
+  },
+  pageLifetimes: {
+    show() {
+      this.setData({
+        playingId: parseInt(app.getPlayMusicId())
+      })
+    }
   },
   methods: {
     onSelect(event) {

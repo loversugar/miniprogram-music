@@ -2,6 +2,7 @@ let movableAreaWidth = 0
 let movableViewWidth = 0
 const backAudioManager = wx.getBackgroundAudioManager();
 let currentSec = -1 // 当前秒数
+let isMoving = false; // 当前进度条是否再拖拽，解决当进度条拖动时，和updateTime事件冲突问题
 let duration = 0; // 当前歌曲总时长, 以秒为单位
 
 Component({
@@ -15,18 +16,25 @@ Component({
   },
   lifetimes: {
     ready() {
+      if (this.properties.isSame
+         && this.data.showTime.totalTime == '00:00') {
+          this._setTime()
+      }
       console.log('ready')
       this._getMovableDis()
       this._bindBGMEvent()
     }
   },
-  properties: {},
+  properties: {
+    isSame: Boolean
+  },
   methods: {
     onChange(event) {
       // 拖动
       if (event.detail.source == 'touch') {
         this.data.progress = event.detail.x / (movableAreaWidth - movableViewWidth) * 100
         this.data.movableDis = event.detail.x
+        isMoving = true
       }
     },
     onTouchEnd() {
@@ -36,6 +44,7 @@ Component({
         movableDis: this.data.movableDis,
         ['showTime.currentTime']: currentTimeFmt.min + ':' + currentTimeFmt.sec
       })
+      isMoving = false;
       backAudioManager.seek(duration * this.data.progress / 100)
     },
     _getMovableDis() {
@@ -79,7 +88,10 @@ Component({
 
     _bindBGMEvent() {
       backAudioManager.onPlay(() => {
+        // 小程序坑，如果再拖动的时候可能再停止的时候再次出发change事件
+        isMoving = false;
 
+        this.triggerEvent('musicPlay')
       })
 
       backAudioManager.onStop(() => {
@@ -87,7 +99,7 @@ Component({
       })
 
       backAudioManager.onPause(() => {
-
+        this.triggerEvent('musicPause')
       })
 
       backAudioManager.onWaiting(() => {
@@ -108,6 +120,9 @@ Component({
       })
 
       backAudioManager.onTimeUpdate(() => {
+        if (isMoving) {
+          return
+        }
         const currentTime = backAudioManager.currentTime
         const duration = backAudioManager.duration
 
@@ -120,12 +135,17 @@ Component({
             })
 
             currentSec = currentTime.toString().split('.')[0]
+
+            // 联动歌词
+            this.triggerEvent('timeUpdate', {
+              currentTime
+            })
         } 
         
       })
 
       backAudioManager.onEnded(() => {
-
+        this.triggerEvent('musicEnd')
       })
 
       backAudioManager.onError((res) => {
