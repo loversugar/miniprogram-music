@@ -1,2 +1,24 @@
-<!--pages/blog/blog.wxml-->
-<text>pages/blog/blog.wxml</text>
+<view class="container">
+    <!--头部-->
+    <view class="header">
+        <view class="publish-container" bind:tap="onPublish">
+            <i class="iconfont icon-fabu"></i>
+        </view> 
+        <view class="search-container">
+            <x-search iconfont="iconfont" icon-sousuo="icon-sousuo"></x-search>
+        </view>
+    </view>
+
+    <view class="blog-list">
+        <block wx:key="_id" wx:for="{{blogList}}">
+            <view class="blog-panel"></view>
+            <x-blog-card blog="{{item}}"></x-blog-card>
+        </block>
+    </view>
+    
+
+    <x-login modalShow="{{modalShow}}" 
+        bind:loginSuccess="onLoginSuccess"
+        bind:loginFail="onLoginFail">
+    </x-login>
+</view>

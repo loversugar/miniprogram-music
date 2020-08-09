@@ -1,0 +1,31 @@
+<view class="container">
+    <textarea   
+        bindinput="onInput"
+        class="content" placeholder="sharing something"
+        auto-focus="true"
+        bindfocus="onFocus"
+        bindblur="onBlur"
+        maxlength="140">
+        </textarea>
+    <view class="image-list">
+        <block wx:for="{{images}}" wx:key="*this">
+            <view class="image-wrap" mode="aspectFill"> 
+                <image class="image" data-imgsrc="{{item}}"
+                     src="{{item}}" bind:tap="onPreviewImage" /> 
+                <i class="iconfont icon-shanchu1"
+                    bind:tap="onDelImage" data-index="{{index}}"></i>
+            </view>
+        </block>
+
+        <view class="image-wrap selectphoto"
+            wx:hidden="{{selectPhoto}}"
+            bind:tap="onChooseImg">
+            <i class="iconfont icon-icon-test icon-style"></i>
+        </view>
+    </view>
+</view>
+
+<view class="footer" style="bottom:{{footerBottom}}px">
+    <text class="words-num">{{wordsNum}}</text>
+    <button class="send-btn" bind:tap="send">publish</button>
+</view>
