@@ -1,0 +1,43 @@
+.ctrl {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    height: 100%;
+}
+
+.ctrl-item {
+    flex: 1;
+    text-align: center;
+    color: rgba(40, 47, 60, 0.8);
+    font-size: 26rpx;
+    height: 60rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.ctrl-item .icon {
+    margin-right: 12rpx;
+    font-size: 32rpx;
+}
+
+.ctrl-item text {
+    font-size: 32rpx;
+}
+
+/* .panel {
+    position: absolute;
+    bottom: 0rpx;
+    left: 0;
+    width: 100%;
+    height: 300rpx;
+    background-color: #f8f8f8;
+}
+
+.modal .icon-shanchu {
+    position: relative;
+    right: 10rpx;
+    top: 10rpx;
+    padding: 2orpx;
+} */

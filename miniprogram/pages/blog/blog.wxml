@@ -17,6 +17,13 @@
             <x-blog-card blog="{{item}}"
                 bind:tap="goComment"
                 data-blogid="{{item._id}}"></x-blog-card>
+            <x-blog-ctrl
+                iconfont="iconfont"
+                icon-pinglun="icon-pinglun"
+                icon-share_icon="icon-share_icon"
+                blogId="{{item._id}}"
+                >
+            </x-blog-ctrl>
         </block>
     </view>
     
