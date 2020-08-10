@@ -2,7 +2,7 @@
   <view class="blog-title">
     <image class="blog-portrait" src="{{blog.avatarUrl}}" /> 
     <view class="blog-box">
-      <view >{{blog.nickName}}</view> 
+      <view class="blog-nickName">{{blog.nickName}}</view> 
       <view class="blog-time">{{blog.createTime}}</view>
     </view>
   </view>
@@ -10,7 +10,7 @@
   <view class="blog-img">
     <block wx:for="{{blog.img}}" wx:key="{{index}}">
       <image class="img" src="{{item}}" mode="aspectFill"
-        bind:tap="onPreviewImage"
+        catch:tap="onPreviewImage"
         data-imgsrc="{{item}}"
         data-imgs="{{blog.img}}" /> 
     </block> 

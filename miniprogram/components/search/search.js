@@ -1,3 +1,4 @@
+let keyword = ''
 Component({
   data: {},
   properties: {
@@ -11,5 +12,15 @@ Component({
     'iconfont',
     'icon-sousuo'
   ],
-  methods: {}
+  methods: {
+    onInput(event) {
+      keyword = event.detail.value
+    },
+
+    onSearch() {
+      this.triggerEvent('search', {
+        keyword
+      })
+    }
+  }
 })
