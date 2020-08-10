@@ -12,7 +12,9 @@
     <view class="blog-list">
         <block wx:key="_id" wx:for="{{blogList}}">
             <view class="blog-panel"></view>
-            <x-blog-card blog="{{item}}"></x-blog-card>
+            <x-blog-card blog="{{item}}"
+                catch:tap="goComment"
+                data-blogid="{{item._id}}"></x-blog-card>
         </block>
     </view>
     
