@@ -130,8 +130,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (event) {
 
+      console.log(event)
+      let blogObj = event.target.dataset
+      return {
+        title: blogObj.content,
+        path: '/pages/blog-comment/blog-comment?blogId=' + blogObj._id
+      }
   },
 
   onLoginSuccess(event) {

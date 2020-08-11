@@ -22,6 +22,7 @@
                 icon-pinglun="icon-pinglun"
                 icon-share_icon="icon-share_icon"
                 blogId="{{item._id}}"
+                blog="{{item}}"
                 >
             </x-blog-ctrl>
         </block>

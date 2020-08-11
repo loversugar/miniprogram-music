@@ -1,11 +1,40 @@
 // pages/blog-comment/blog-comment.js
+let blogId = ''
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    blog: {},
+    commentList: []
+  },
 
+  _getBlogDetail(blogId) {
+    wx.showLoading({
+      title: 'loading',
+      mask: true,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+
+    wx.cloud.callFunction({
+      name: 'blog',
+      data: {
+        blogId,
+        $url: 'detail',
+      }
+    }).then((res) => {
+      wx.hideLoading();
+      console.log(res)
+      this.setData({
+        blog: res.result.detail[0],
+        commentList: res.result.commentList.data 
+      })
+    })
   },
 
   /**
@@ -13,6 +42,10 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
+    this.setData({
+      blogId: options.blogId
+    })
+    this._getBlogDetail(options.blogId)
   },
 
   /**
@@ -61,6 +94,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    const blog = this.data.blog
+    return {
+      title: blog.content,
+      path: '/pages/blog-comment/blog-comment?blogId=' + blog._id
+    }
   }
 })

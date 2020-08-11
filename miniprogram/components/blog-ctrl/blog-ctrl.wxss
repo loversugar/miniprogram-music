@@ -26,6 +26,25 @@
     font-size: 32rpx;
 }
 
+.share-btn {
+    background-color: #fff;
+    color: rgba(40, 47, 60, 0.8);
+    padding: 0;
+    height: 100%;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.share-btn::after {
+    display: none;
+}
+.share-hover::after {
+    border: 0;
+}
+
 /* .panel {
     position: absolute;
     bottom: 0rpx;

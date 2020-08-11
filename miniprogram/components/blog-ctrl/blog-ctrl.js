@@ -7,7 +7,8 @@ Component({
     bottomModal: false
   },
   properties: {
-    blogId: String
+    blogId: String,
+    blog: Object
   },
   externalClasses: [
     'iconfont',
@@ -68,6 +69,20 @@ Component({
       })
 
 
+      // 发送模版
+      wx.cloud.callFunction({
+        name: 'send-message',
+        data: {
+          content,
+          formId,
+          blogId: this.properties.blogId
+        }
+      }).then((res) => {
+        console.log(res)
+      })
+
+      // 父元素刷新评论
+      this.triggerEvent('refreshComment')
 
     },
     onComment() {
