@@ -7,7 +7,8 @@ Page({
    */
   data: {
     blog: {},
-    commentList: []
+    commentList: [],
+    blogId: ''
   },
 
   _getBlogDetail(blogId) {

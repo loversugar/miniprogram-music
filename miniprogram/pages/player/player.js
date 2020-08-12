@@ -21,6 +21,27 @@ Page({
     isSame: false, // 表示是否为同一首歌曲
   },
 
+  // 保存播放历史
+  savePlayHitory() {
+    const music = musiclist[nowPlayingIndex]
+    const openid = app.globalData.openid
+    console.log('openid' + openid)
+    const history = wx.getStorageSync(openid)
+
+    let bHave = false;
+    for (let i=0; i<history.length; i++) {
+      if (history[i].id == music.id) {
+        bHave = true
+        break
+      }
+    }
+
+    if (!bHave) {
+      history.unshift(music)
+      wx.setStorageSync(openid, history);
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -109,6 +130,8 @@ Page({
         backgroundAudioManager.coverImgUrl = music.al.picUrl
         backgroundAudioManager.singer = music.ar[0].name
         backgroundAudioManager.epname = music.al.name
+
+        this.savePlayHitory()
       }
 
       this.setData({

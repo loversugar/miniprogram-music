@@ -39,6 +39,34 @@ Page({
 
   },
 
+  onTapQrCode() {
+    wx.showLoading({
+      title: '生成中',
+      mask: true,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+
+    wx.cloud.callFunction({
+      name: 'getQrCode'
+    }).then((res) => {
+      wx.hideLoading();
+
+      wx.previewImage({
+        current: res.result,
+        urls: [res.result],
+        success: (result)=>{
+          
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

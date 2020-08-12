@@ -1,18 +1,43 @@
 // pages/profile-playhistory/profile-playhistory.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    musiclist: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const openid = app.globalData.openid
+    const playHistory = wx.getStorageSync(openid);
+    if (playHistory.length == 0) {
+      wx.showModal({
+        title: '当前播放历史为空',
+        content: '',
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '#000000',
+        confirmText: '确定',
+        confirmColor: '#3CC51F',
+        success: (result) => {
+          if(result.confirm){
+            
+          }
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+    } else {
+      wx.setStorageSync('musiclist', playHistory);
+      this.setData({
+        musiclist: playHistory
+      })
+    }
   },
 
   /**

@@ -17,13 +17,28 @@ App({
 
     this.globalData = {
       playingMusicId: -1,
+      opendid: -1
     }
 
+    this.getOpenid()
+  },
+  getOpenid() {
+    wx.cloud.callFunction({
+      name: 'login'
+    }).then((res) => {
+      console.log(res.result)
+      const openid = res.result.openid;
+      console.log(openid)
+      this.globalData.openid = res.result.openid
+      if (wx.getStorageSync(openid) == '') {
+        wx.setStorageSync(openid, []);
+      }
+    })
   },
   setPlayMusicId(musicId) {
     this.globalData.playingMusicId = musicId 
   },
   getPlayMusicId() {
     return this.globalData.playingMusicId
-  }
+  },
 })

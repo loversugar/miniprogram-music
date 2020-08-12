@@ -5,14 +5,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    blogList: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this._getListByCloudFn()
+  },
 
+  goComment(event) {
+    wx.navigateTo({
+      url: '../blog-comment/blog-comment?blogId='+event.target.dataset.blogid,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+
+  _getListByCloudFn() {
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+      success: (result)=>{
+        
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+    wx.cloud.callFunction({
+      name: 'blog',
+      data: {
+        $url: 'getListByOpenid',
+        start: this.data.blogList.length,
+        count: 10
+      }
+    }).then((res) => {
+      console.log(res)
+      this.setData({
+        blogList: this.data.blogList.concat(res.result)
+      })
+      wx.hideLoading();
+    })
   },
 
   /**
@@ -54,13 +91,17 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this._getListByCloudFn()
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
+  onShareAppMessage: function (event) {
+    const blog = event.target.dataset.blog
+    return {
+      title: blog.content,
+      path: '/pages/blog-comment/blog-comment?blogId' + blog._id
+    }
   }
 })
